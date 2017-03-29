@@ -1,0 +1,1 @@
+﻿.\flash_player_24.exe -install
