@@ -1,0 +1,2 @@
+﻿c:\windows\system32\cscript.exe "c:\program files\microsoft office\office16\ospp.vbs" /sethst:kms01.sys.oakland.edu
+c:\windows\system32\cscript.exe "c:\program files\microsoft office\office16\ospp.vbs" /act

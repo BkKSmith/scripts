@@ -1,0 +1,1 @@
+﻿Start-Process "\\matlock.secs.oakland.edu\CTO\Software\ETAS\ASCET 7.2.0\install\ASCET_V7.2.0\setup.exe" -ArgumentList "/S" -Wait
