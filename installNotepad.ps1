@@ -1,0 +1,1 @@
+﻿Start-Process "\\scorpion.killingfields.com\Software\notepadplus7" -ArgumentList "/S" -Wait
