@@ -1,0 +1,1 @@
+﻿ "logff {0} {1} {2:yyyy-MM-dd HH:mm:ss}" -f $env:username, $env:computername, (Get-Date) >> testlogoff.log

@@ -1,0 +1,1 @@
+﻿Get-EventLog Security -ComputerName Computer  -Source Microsoft-Windows-Security-Auditing | Where {$_.InstanceID -like "4624"} | Select $UserProperty | where {$_.Username -Like "username"} | Export-Csv D:\Logon.csv -NoTypeInformation
