@@ -5,14 +5,26 @@
 
 
 #>
+$programRun = "yes"
 
-Write-Host "Hello there, please enter the computer you would like to run a script on"
-$targetComputer = Read-Host
+While($programRun -eq "yes"){
+
+    $targetComputer = $env:COMPUTERNAME
+
+    Write-Host "Running on $targetComputer (enter y for yes)?"
+    $differentComputer = Read-Host
+
+    If($differentComputer -ne "y"){
+        Write-Host "Please enter the computer name:  "
+        $targetComputer = Read-Host
+    }
+
+
 
 If($targetComputer -ne $null){
     Write-Host "Enter the number with the corresponding task you want to complete
     Enter 1 for pulling Member Information
-    Enter 2 to copy the data to a backing up commands Not Completed yet
+    Enter 2 Change Title and Description(Change Notifications)
     Enter 3 to Search for data on a drive
     Enter 4 to backup data to external drive 
     More Options Coming soon"
@@ -21,29 +33,36 @@ If($targetComputer -ne $null){
 
 
     If($decisionTime -eq 1){
+
+        #Make sure to set $FormatEnumerationLimit to -1 or it will not dislay the entire list.
+        $FormatEnumerationLimit=-1
         Get-ADComputer $targetComputer -Properties "MemberOf" > C:\Users\smith_ky\Desktop\testFile3.txt
 
 
     }
 
     if($decisionTime -eq 2){
-        Write-Host "This will create the backup folders for a machine with little input
-        First Enter the ticket number for the machine you are working on
-        If there isn't a ticket then enter 00000"
-        $tNumber = Read-Host
+    
+        <# targetAccount takes user input. Try to make sure that you are using the user's username,
+           not their First or last name#>
+        Write-Host "Please enter the user's name that you are going to change"
+        $targetAccount = Read-Host
         
-  
-        
-        Write-Host "Enter the drive you want to use store the data"
-        $driveName = Read-Host 
-        $testDesired = Test-Path -Path "$driveName$tNumber$targetComputer"
-        
-        If($testDesired -eq 'True'){
+        Get-ADUser $targetAccount
 
+        Write-Host "Please verify that is the correct user"
+
+        $correctUser = Read-Host
+        
+        If($correctUser -eq 'yes'){
+
+            Write-Host "Enter what the new job position will be"
+            $titleChange = Read-Host
+            Set-ADUser $targetAccount -Title $titleChange -Description $titleChange
 
         }
-
-
+    
+    
     }
 
     If($decisionTime -eq 3){
@@ -67,10 +86,21 @@ If($targetComputer -ne $null){
        Write-Host "This will back up the data under the users folder and the D:\
        and push that to a back up drive of your selection."
 
-       $ticketNumber = Read-Host "Please enter the ticket number that you are working on"
-       $backupHome = Read-Host "Please enter the path where the root drive should be saved"
+       $userLName = Read-Host "Please Enter the last name of the user's machine that you are working on"
        
-       $yellowBrickRoad = $backupHome + $ticketNumber + "_" + $targetComputer
+       
+       $backupHome = "\\usn015\Backups\"
+
+       Write-Host "Are you backing this up to the normal location, $backupHome (y for yes)?"
+
+       $correctLocation = Read-Host
+
+       If($correctLocation -ne "y"){
+        Write-Host "Where is the location that you want to back this up to?"
+        $backupHome = Read-Host
+       }
+       
+       $yellowBrickRoad = $backupHome + $userLName + "_" + $targetComputer
        $pathTester = Test-Path -Path $yellowBrickRoad
 
        If($pathTester -eq $true){
@@ -106,4 +136,11 @@ If($targetComputer -ne $null){
     
     }
 
+}
+
+Write-Host "Task completed! Thank You for Using this tool, 
+if you are done you can close out at this point. 
+Otherwise it will continue from the main menu
+
+" -ForegroundColor Green
 }
