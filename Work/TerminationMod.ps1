@@ -2,6 +2,7 @@
     This module is made to help make termination work be more automated. As things are completed
     and the code is testd, more features will be added
 
+    Ver. 1.1
 
 
 #>
@@ -34,7 +35,7 @@ If($targetComputer -ne $null){
 
     If($decisionTime -eq 1){
 
-        #Make sure to set $FormatEnumerationLimit to -1 or it will not dislay the entire list.
+        #Make sure to set $FormatEnumerationLimit to -1 or it will not dislay the entire list.This is an env var.
         $FormatEnumerationLimit=-1
         Get-ADComputer $targetComputer -Properties "MemberOf" > C:\Users\smith_ky\Desktop\testFile3.txt
 
@@ -89,7 +90,7 @@ If($targetComputer -ne $null){
        $userLName = Read-Host "Please Enter the last name of the user's machine that you are working on"
        
        
-       $backupHome = "\\usn015\Backups\"
+       $backupHome = "\\wico0002\Backups\"
 
        Write-Host "Are you backing this up to the normal location, $backupHome (y for yes)?"
 
@@ -113,8 +114,8 @@ If($targetComputer -ne $null){
            $CdriveBack = $yellowBrickRoad + "\CDrive"
             New-Item -ItemType Directory -Path $CdriveBack
         
-           $DdriveBack = $yellowBrickRoad + "\DDrive"
-            New-Item -ItemType Directory -Path $DdriveBack
+           #$DdriveBack = $yellowBrickRoad + "\DDrive"
+            #New-Item -ItemType Directory -Path $DdriveBack
 
             Write-Host "-----------Finished Creating Folders---------" -ForegroundColor Green
         
