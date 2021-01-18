@@ -90,7 +90,7 @@ If($targetComputer -ne $null){
        $userLName = Read-Host "Please Enter the last name of the user's machine that you are working on"
        
        
-       $backupHome = "\\wico0002\Backups\"
+       $backupHome = "\\wico0002\Cold_Storage\"
 
        Write-Host "Are you backing this up to the normal location, $backupHome (y for yes)?"
 
