@@ -4,12 +4,12 @@ This program was created to remove a stuck lock file from the AIM software.
 Created By:
     Kyle Smith II
 
-    version 0.8
+    version 0.9
 
 #>
 
 #Get User list
-$userList = Get-ChildItem C:\users\ | sort LastWriteTime -Descending
+$userList = Get-ChildItem C:\users\ | Sort-Object LastWriteTime -Descending
 
 #User folder with the most recent file change should be current user
 $currentUser = $userList[0].Name
