@@ -51,7 +51,6 @@ ForEach ($line in $sessionQuery[1..$sessionQuery.count]){
          #Type = $outDisplay[4]
         }
         $outData
-        rwinsta $outData.ID /server:$machineName
         
     }
     Else{
@@ -64,6 +63,7 @@ ForEach ($line in $sessionQuery[1..$sessionQuery.count]){
             #Type = $outDisplay[4]
            }
            $outData
+           rwinsta $outData.ID /server:$machineName
         }
     }
         }
