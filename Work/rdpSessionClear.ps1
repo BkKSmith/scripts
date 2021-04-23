@@ -44,11 +44,11 @@ ForEach ($line in $sessionQuery[1..$sessionQuery.count]){
     If($line[48] -eq "A"){
         $outData = [PSCustomObject]@{
          ComputerName = $machineName
-         #SessionName = $outDisplay[0]
+         SessionName = $outDisplay[0]
          UserName = $outDisplay[1]
          ID = $outDisplay[2]
          State = $outDisplay[3]
-         #Type = $outDisplay[4]
+         Type = $outDisplay[4]
         }
         $outData
         
@@ -56,11 +56,11 @@ ForEach ($line in $sessionQuery[1..$sessionQuery.count]){
     Else{
         $outData = [PSCustomObject]@{
             ComputerName = $machineName
-            #SessionName = $outDisplay[0]
+            SessionName = $outDisplay[0]
             UserName = $outDisplay[1]
             ID = $outDisplay[2]
             State = $outDisplay[3]
-            #Type = $outDisplay[4]
+            Type = $outDisplay[4]
            }
            $outData
            rwinsta $outData.ID /server:$machineName
