@@ -70,8 +70,12 @@ ForEach ($line in $sessionQuery[1..$sessionQuery.count]){
            Write-Host "The Following connection has a disconnected status`n"
            $outData
            Write-Host "`n`nAttempting to clear the disconnected session, please wait"
-           rwinsta $outData.ID /server:$machineName
-           
+           Try{
+               rwinsta $outData.ID /server:$machineName
+           }
+           Catch{
+               Write-Host "An error occured. Please contact your IT Administrator for more help"
+           }
         }
     }
         }
