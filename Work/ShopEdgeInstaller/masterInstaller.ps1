@@ -10,7 +10,7 @@ Created and owned By:
 
 $goodValues =@()
 $retryLater = @()
-$computerArray = @(Get-Content C:\Users\ksmith\Documents\ShopEdgeInstaller\machineList.txt)
+$computerArray = @(Get-Content \\wfs01\users\ksmith\ShopEdgeInstaller\machineList.txt)
 
 #For each loop goes through each item in the computer $computerArray
 Foreach($i in $computerArray){
@@ -30,8 +30,9 @@ Foreach($i in $computerArray){
             }
 
         Else{
-            New-Item -Path "$i\C$\ShopEdge" -ItemType Directory
+            New-Item -Path "\\$i\C$\ShopEdge" -ItemType Directory
             Copy-Item -Path "\\wap01\c$\ShopEdgeDist\Binaries" -Recurse -Destination "\\$i\C$\ShopEdge"
+            Copy-Item -Path "\\wfs01\Users\ksmith\public\ShopEdge.ERP.lnk" -Destination "\\$i\C$\users\public\Desktop\"
             $goodValues = $goodValues + "$i Fresh_Install_Completed"
             Write-Host "Folder created and software installed"
             }
