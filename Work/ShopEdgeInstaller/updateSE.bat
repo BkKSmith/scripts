@@ -1,0 +1,1 @@
+Powershell.exe -executionpolicy bypass -File "\\wfs01\shared\AIM\Tools\shell\updateSEbinaries.ps1"
