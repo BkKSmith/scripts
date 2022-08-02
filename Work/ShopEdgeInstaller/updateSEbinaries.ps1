@@ -5,7 +5,30 @@
     Version: 1.0
 #>
    
-    Remove-Item -Path "\\$i\C$\ShopEdge\Binaries\" -Recurse
-    Copy-Item -Path "\\wap01\c$\ShopEdgeDist\Binaries\" -Recurse -Destination "\\$i\C$\ShopEdge"
-    Copy-Item -Path "\\wfs01\Users\ksmith\public\ShopEdge.ERP.lnk" -Destination "\\$i\C$\users\public\Desktop\"
-    Write-Host "Folder created and software installed"
+<#Make sure that the below location is changed when using for another install#>
+$computerArray = @(Get-Content \\wfs01\users\ksmith\ShopEdgeInstaller\machineUpdateList.txt)
+
+
+
+    Foreach($i in $computerArray){
+        Write-Host "Attempting to connnect to: $i"
+        #Test Connection to host
+        $connectionPass = Test-Connection -Quiet $i
+        
+        If ($connectionPass -eq $True){
+            Write-Host "Connection Completed"
+    
+            Remove-Item -Path "\\$i\C$\ShopEdge\*" -Recurse
+            Write-Host "Old Binaries erased"
+            Copy-Item -Path "\\wap01\c$\ShopEdgeDist\Binaries\" -Recurse -Destination "\\$i\C$\ShopEdge"
+            Write-Host "New Binaries updated"
+    
+    
+        }
+    
+        ElseIf($connectionPass -eq $False){
+           Write-Host "The following machine has failed updating: $i"
+            
+        }
+    }
+    
