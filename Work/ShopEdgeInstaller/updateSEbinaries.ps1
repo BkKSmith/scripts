@@ -7,7 +7,7 @@
    
 <#Make sure that the below location is changed when using for another install#>
 $computerArray = @(Get-Content \\wfs01\users\ksmith\ShopEdgeInstaller\machineUpdateList.txt)
-
+$retryLater = @()
 
 
     Foreach($i in $computerArray){
@@ -28,7 +28,8 @@ $computerArray = @(Get-Content \\wfs01\users\ksmith\ShopEdgeInstaller\machineUpd
     
         ElseIf($connectionPass -eq $False){
            Write-Host "The following machine has failed updating: $i"
-            
-        }
+           $retryLater = $retryLater + "$i Unable to connect"
+        } 
     }
     
+    $retryLater | Out-File \\wfs01\users\ksmith\public\seUpdateLog.txt
