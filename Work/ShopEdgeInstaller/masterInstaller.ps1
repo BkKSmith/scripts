@@ -25,7 +25,9 @@ Foreach($i in $computerArray){
         If ((Test-Path "\\$i\c$\ShopEdge") -eq $True){
             Copy-Item -Path "\\wap01\c$\ShopEdgeDist\Binaries\" -Recurse -Destination "\\$i\C$\ShopEdge"
             Copy-Item -Path "\\wfs01\Users\ksmith\public\ShopEdge.ERP.lnk" -Destination "\\$i\C$\users\public\Desktop\"
+            
             $goodValues = $goodValues + "$i Install_Completed"
+            
             Copy-Item -Path "\\wap01\ShopEdgeDist\Redist\RS Report Viewer version 12" -Recurse -Destination "\\$i\C$\Temp"
             Write-Host "Install Completed"
             }
@@ -34,7 +36,9 @@ Foreach($i in $computerArray){
             New-Item -Path "\\$i\C$\ShopEdge" -ItemType Directory
             Copy-Item -Path "\\wap01\c$\ShopEdgeDist\Binaries\" -Recurse -Destination "\\$i\C$\ShopEdge"
             Copy-Item -Path "\\wfs01\Users\ksmith\public\ShopEdge.ERP.lnk" -Destination "\\$i\C$\users\public\Desktop\"
+
             $goodValues = $goodValues + "$i Fresh_Install_Completed"
+
             Copy-Item -Path "\\wap01\ShopEdgeDist\Redist\RS Report Viewer version 12" -Recurse -Destination "\\$i\C$\Temp"
             Write-Host "Folder created and software installed"
             }
