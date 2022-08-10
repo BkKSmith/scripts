@@ -17,13 +17,25 @@ $installLog = @()
         
         If ($connectionPass -eq $True){
             Write-Host "Connection Completed"
-    
-            Remove-Item -Path "\\$i\C$\ShopEdge\*" -Recurse
-            Write-Host "Old Binaries erased"
-            Copy-Item -Path "\\wap01\c$\ShopEdgeDist\Binaries\" -Recurse -Destination "\\$i\C$\ShopEdge"
-            Write-Host "New Binaries updated"
-            $installLog = $installLog + "$i,Installation completed"
-    
+            try{
+                Remove-Item -Path "\\$i\C$\ShopEdge\*" -Recurse -ErrorAction Stop
+                Write-Host "This should not display"
+                $continueUpdate = $True
+            }
+            
+            catch [System.UnauthorizedAccessException]{
+                "Software is still open"
+                $installLog = $installLog + "$i,Update Failed: Please close the app on this pc"
+                $continueUpdate = $False
+            }
+
+            if ($continueUpdate -eq $True){
+                Write-Host "Old Binaries erased"
+                Copy-Item -Path "\\wap01\c$\ShopEdgeDist\Binaries\" -Recurse -Destination "\\$i\C$\ShopEdge"
+                Write-Host "New Binaries updated"
+                $installLog = $installLog + "$i,Installation completed"
+            }
+
     
         }
     
