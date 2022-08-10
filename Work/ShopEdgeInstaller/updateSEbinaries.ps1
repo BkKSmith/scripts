@@ -7,7 +7,7 @@
    
 <#Make sure that the below location is changed when using for another install#>
 $computerArray = @(Get-Content \\wfs01\users\ksmith\ShopEdgeInstaller\machineUpdateList.txt)
-$retryLater = @()
+$installLog = @()
 
 
     Foreach($i in $computerArray){
@@ -22,14 +22,15 @@ $retryLater = @()
             Write-Host "Old Binaries erased"
             Copy-Item -Path "\\wap01\c$\ShopEdgeDist\Binaries\" -Recurse -Destination "\\$i\C$\ShopEdge"
             Write-Host "New Binaries updated"
+            $installLog = $installLog + "$i,Installation completed"
     
     
         }
     
         ElseIf($connectionPass -eq $False){
            Write-Host "The following machine has failed updating: $i"
-           $retryLater = $retryLater + "$i Unable to connect"
+           $installLog = $installLog + "$i,Unable to connect"
         } 
     }
     
-    $retryLater | Out-File \\wfs01\users\ksmith\public\seUpdateLog.txt
+    $installLog | Out-File \\wfs01\users\ksmith\public\seUpdateLog.csv
