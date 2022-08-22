@@ -14,12 +14,12 @@ $computerArray = @(Get-Content \\wfs01\users\ksmith\ShopEdgeInstaller\machineLis
 
 #For each loop goes through each item in the computer $computerArray
 Foreach($i in $computerArray){
-    Write-Host "$i"
+    Write-Host "$i" -ForegroundColor Blue
     #Test Connection to host
     $connectionPass = Test-Connection -Quiet $i
     
     If ($connectionPass -eq $True){
-        Write-Host "Working"
+        Write-Host "Working" -ForegroundColor Green
 
         #If the connection was established test to see if the path below exists
         If ((Test-Path "\\$i\c$\ShopEdge") -eq $True){
@@ -29,7 +29,7 @@ Foreach($i in $computerArray){
             $goodValues = $goodValues + "$i Install_Completed"
             
             Copy-Item -Path "\\wap01\ShopEdgeDist\Redist\RS Report Viewer version 12" -Recurse -Destination "\\$i\C$\Temp"
-            Write-Host "Install Completed"
+            Write-Host "Install Completed" -ForegroundColor Green
             }
 
         Else{
@@ -40,7 +40,7 @@ Foreach($i in $computerArray){
             $goodValues = $goodValues + "$i Fresh_Install_Completed"
 
             Copy-Item -Path "\\wap01\ShopEdgeDist\Redist\RS Report Viewer version 12" -Recurse -Destination "\\$i\C$\Temp"
-            Write-Host "Folder created and software installed"
+            Write-Host "Folder created and software installed" -ForegroundColor Green
             }
 
 
