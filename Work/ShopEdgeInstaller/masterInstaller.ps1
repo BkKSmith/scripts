@@ -11,7 +11,7 @@ Created and owned By:
 $goodValues =@()
 $retryLater = @()
 #Set below value equal to location of the machine list text file
-$computerArray = @(Get-Content \\wfs01\users\ksmith\ShopEdgeInstaller\machineList.txt)
+$computerArray = @(Get-Content \\wfs01\users\ksmith\ShopEdgeInstaller\installList.txt)
 
 #For each loop goes through each item in the computer $computerArray
 Foreach($i in $computerArray){
